@@ -1,0 +1,43 @@
+{
+    "parser": {
+        "abi": {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "approvedHash",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                }
+            ],
+            "name": "ApproveHash",
+            "type": "event"
+        },
+        "contract_address": "0x34cfac646f301356faa8b21e94227e3583fe3f5f",
+        "field_mapping": {},
+        "type": "log"
+    },
+    "table": {
+        "dataset_name": "GnosisYFI",
+        "schema": [
+            {
+                "description": "",
+                "name": "approvedHash",
+                "type": "STRING"
+            },
+            {
+                "description": "",
+                "name": "owner",
+                "type": "STRING"
+            }
+        ],
+        "table_description": "",
+        "table_name": "GnosisSafe_event_ApproveHash"
+    }
+}
