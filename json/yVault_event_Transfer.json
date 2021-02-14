@@ -1,54 +1,54 @@
 {
-    "parser": {
-        "abi": {
-            "anonymous": false,
-            "inputs": [
-                {
-                    "indexed": true,
-                    "internalType": "address",
-                    "name": "from",
-                    "type": "address"
-                },
-                {
-                    "indexed": true,
-                    "internalType": "address",
-                    "name": "to",
-                    "type": "address"
-                },
-                {
-                    "indexed": false,
-                    "internalType": "uint256",
-                    "name": "value",
-                    "type": "uint256"
-                }
-            ],
-            "name": "Transfer",
-            "type": "event"
+  "parser": {
+    "abi": {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "from",
+          "type": "address"
         },
-        "contract_address": "0xacd43e627e64355f1861cec6d3a6688b31a6f952",
-        "field_mapping": {},
-        "type": "log"
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "value",
+          "type": "uint256"
+        }
+      ],
+      "name": "Transfer",
+      "type": "event"
     },
-    "table": {
-        "dataset_name": "YFI_DAI_Vault",
-        "schema": [
-            {
-                "description": "",
-                "name": "from",
-                "type": "STRING"
-            },
-            {
-                "description": "",
-                "name": "to",
-                "type": "STRING"
-            },
-            {
-                "description": "",
-                "name": "value",
-                "type": "STRING"
-            }
-        ],
-        "table_description": "",
-        "table_name": "yVault_event_Transfer"
-    }
+    "contract_address": "0xacd43e627e64355f1861cec6d3a6688b31a6f952",
+    "field_mapping": {},
+    "type": "log"
+  },
+  "table": {
+    "dataset_name": "YFI_DAI_Vault",
+    "schema": [
+      {
+        "description": "",
+        "name": "from",
+        "type": "STRING"
+      },
+      {
+        "description": "",
+        "name": "to",
+        "type": "STRING"
+      },
+      {
+        "description": "",
+        "name": "value",
+        "type": "STRING"
+      }
+    ],
+    "table_description": "",
+    "table_name": "yVault_event_Transfer"
+  }
 }

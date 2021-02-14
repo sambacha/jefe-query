@@ -20,11 +20,12 @@
 function runQuery() {
   // Replace this value with the project ID listed in the Google
   // Cloud Platform project.
-  var projectId = 'XXXXXXXX';
+  var projectId = "XXXXXXXX";
 
   var request = {
-    query: 'SELECT TOP(word, 300) AS word, COUNT(*) AS word_count ' +
-      'FROM publicdata:samples.shakespeare WHERE LENGTH(word) > 10;'
+    query:
+      "SELECT TOP(word, 300) AS word, COUNT(*) AS word_count " +
+      "FROM publicdata:samples.shakespeare WHERE LENGTH(word) > 10;",
   };
   var queryResults = BigQuery.Jobs.query(request, projectId);
   var jobId = queryResults.jobReference.jobId;
@@ -41,17 +42,17 @@ function runQuery() {
   var rows = queryResults.rows;
   while (queryResults.pageToken) {
     queryResults = BigQuery.Jobs.getQueryResults(projectId, jobId, {
-      pageToken: queryResults.pageToken
+      pageToken: queryResults.pageToken,
     });
     rows = rows.concat(queryResults.rows);
   }
 
   if (rows) {
-    var spreadsheet = SpreadsheetApp.create('BiqQuery Results');
+    var spreadsheet = SpreadsheetApp.create("BiqQuery Results");
     var sheet = spreadsheet.getActiveSheet();
 
     // Append the headers.
-    var headers = queryResults.schema.fields.map(function(field) {
+    var headers = queryResults.schema.fields.map(function (field) {
       return field.name;
     });
     sheet.appendRow(headers);
@@ -67,10 +68,9 @@ function runQuery() {
     }
     sheet.getRange(2, 1, rows.length, headers.length).setValues(data);
 
-    Logger.log('Results spreadsheet created: %s',
-        spreadsheet.getUrl());
+    Logger.log("Results spreadsheet created: %s", spreadsheet.getUrl());
   } else {
-    Logger.log('No rows returned.');
+    Logger.log("No rows returned.");
   }
 }
 // [END apps_script_bigquery_run_query]
@@ -82,37 +82,37 @@ function runQuery() {
 function loadCsv() {
   // Replace this value with the project ID listed in the Google
   // Cloud Platform project.
-  var projectId = 'XXXXXXXX';
+  var projectId = "XXXXXXXX";
   // Create a dataset in the BigQuery UI (https://bigquery.cloud.google.com)
   // and enter its ID below.
-  var datasetId = 'YYYYYYYY';
+  var datasetId = "YYYYYYYY";
   // Sample CSV file of Google Trends data conforming to the schema below.
   // https://docs.google.com/file/d/0BwzA1Orbvy5WMXFLaTR1Z1p2UDg/edit
-  var csvFileId = '0BwzA1Orbvy5WMXFLaTR1Z1p2UDg';
+  var csvFileId = "0BwzA1Orbvy5WMXFLaTR1Z1p2UDg";
 
   // Create the table.
-  var tableId = 'pets_' + new Date().getTime();
+  var tableId = "pets_" + new Date().getTime();
   var table = {
     tableReference: {
       projectId: projectId,
       datasetId: datasetId,
-      tableId: tableId
+      tableId: tableId,
     },
     schema: {
       fields: [
-        {name: 'week', type: 'STRING'},
-        {name: 'cat', type: 'INTEGER'},
-        {name: 'dog', type: 'INTEGER'},
-        {name: 'bird', type: 'INTEGER'}
-      ]
-    }
+        { name: "week", type: "STRING" },
+        { name: "cat", type: "INTEGER" },
+        { name: "dog", type: "INTEGER" },
+        { name: "bird", type: "INTEGER" },
+      ],
+    },
   };
   table = BigQuery.Tables.insert(table, projectId, datasetId);
-  Logger.log('Table created: %s', table.id);
+  Logger.log("Table created: %s", table.id);
 
   // Load CSV data from Drive and convert to the correct format for upload.
   var file = DriveApp.getFileById(csvFileId);
-  var data = file.getBlob().setContentType('application/octet-stream');
+  var data = file.getBlob().setContentType("application/octet-stream");
 
   // Create the data upload job.
   var job = {
@@ -121,14 +121,17 @@ function loadCsv() {
         destinationTable: {
           projectId: projectId,
           datasetId: datasetId,
-          tableId: tableId
+          tableId: tableId,
         },
-        skipLeadingRows: 1
-      }
-    }
+        skipLeadingRows: 1,
+      },
+    },
   };
   job = BigQuery.Jobs.insert(job, projectId, data);
-  Logger.log('Load job started. Check on the status of it here: ' +
-      'https://bigquery.cloud.google.com/jobs/%s', projectId);
+  Logger.log(
+    "Load job started. Check on the status of it here: " +
+      "https://bigquery.cloud.google.com/jobs/%s",
+    projectId
+  );
 }
 // [END apps_script_bigquery_load_csv]

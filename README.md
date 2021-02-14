@@ -2,11 +2,10 @@
 
 SQL Table Definitions for Ethereum Transactions
 
-
 ## Transactions
 
 | **Field name**              | **Type**  | **Mode** | **Description**                                                                          |
-|-----------------------------|-----------|----------|------------------------------------------------------------------------------------------|
+| --------------------------- | --------- | -------- | ---------------------------------------------------------------------------------------- |
 | hash                        | STRING    | REQUIRED | Hash of the transaction                                                                  |
 | nonce                       | INTEGER   | REQUIRED | The number of transactions made by the sender prior to this one                          |
 | transaction_index           | INTEGER   | REQUIRED | Integer of the transactions index position in the block                                  |
@@ -28,7 +27,7 @@ SQL Table Definitions for Ethereum Transactions
 ### Tracing
 
 | **Field name**              | **Type**  | **Mode** | **Description**                                                                          |
-|-----------------------------|-----------|----------|------------------------------------------------------------------------------------------|
+| --------------------------- | --------- | -------- | ---------------------------------------------------------------------------------------- |
 | hash                        | STRING    | REQUIRED | Hash of the transaction                                                                  |
 | nonce                       | INTEGER   | REQUIRED | The number of transactions made by the sender prior to this one                          |
 | transaction_index           | INTEGER   | REQUIRED | Integer of the transactions index position in the block                                  |
@@ -49,14 +48,13 @@ SQL Table Definitions for Ethereum Transactions
 
 ## Tokens
 
-| **Field name**    | **Type**  | **Mode** | **Description**                                                                                                                                                                                                                   |
-|-------------------|-----------|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| address           | STRING    | REQUIRED | The address of the ERC20 token                                                                                                                                                                                                    |
-| symbol            | STRING    | NULLABLE | The symbol of the ERC20 token                                                                                                                                                                                                     |
-| name              | STRING    | NULLABLE | The name of the ERC20 token                                                                                                                                                                                                       |
-| decimals          | STRING    | NULLABLE | The number of decimals the token uses. Use safe_cast for casting to NUMERIC or FLOAT64                                                                                                                                            |
-| total_supply      | STRING    | NULLABLE | The total token supply. Use safe_cast for casting to NUMERIC or FLOAT64                                                                                                                                                           |
-| block_timestamp   | TIMESTAMP | REQUIRED | Timestamp of the block where this token was created                                                                                                                                                                               |
-| block_number      | INTEGER   | REQUIRED | Block number where this token was created                                                                                                                                                                                         |
-| block_hash        | STRING    | REQUIRED | Hash of the block where this token was created                                                                                                                                                                                    |
-
+| **Field name**  | **Type**  | **Mode** | **Description**                                                                        |
+| --------------- | --------- | -------- | -------------------------------------------------------------------------------------- |
+| address         | STRING    | REQUIRED | The address of the ERC20 token                                                         |
+| symbol          | STRING    | NULLABLE | The symbol of the ERC20 token                                                          |
+| name            | STRING    | NULLABLE | The name of the ERC20 token                                                            |
+| decimals        | STRING    | NULLABLE | The number of decimals the token uses. Use safe_cast for casting to NUMERIC or FLOAT64 |
+| total_supply    | STRING    | NULLABLE | The total token supply. Use safe_cast for casting to NUMERIC or FLOAT64                |
+| block_timestamp | TIMESTAMP | REQUIRED | Timestamp of the block where this token was created                                    |
+| block_number    | INTEGER   | REQUIRED | Block number where this token was created                                              |
+| block_hash      | STRING    | REQUIRED | Hash of the block where this token was created                                         |
