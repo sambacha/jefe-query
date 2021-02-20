@@ -1,7 +1,5 @@
-CREATE TEMP FUNCTION
-    PARSE_TRACE(data STRING)
-    RETURNS STRUCT<`reserve` STRING, `amount` STRING, error STRING>
-    LANGUAGE js AS """
+CREATE TEMP FUNCTION PARSE_TRACE(data STRING)
+RETURNS STRUCT< reserve STRING, amount STRING, error STRING > LANGUAGE js AS """
     var abi = {"constant": false, "inputs": [{"internalType": "address", "name": "reserve", "type": "address"}, {"internalType": "uint256", "name": "amount", "type": "uint256"}], "name": "harvest", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function"};
     var interface_instance = new ethers.utils.Interface([abi]);
 
@@ -28,30 +26,28 @@ CREATE TEMP FUNCTION
     }
 
     return result;
-"""
-OPTIONS
-  ( library="gs://blockchain-etl-bigquery/ethers.js" );
-
-WITH parsed_traces AS
-(SELECT
-    traces.block_timestamp AS block_timestamp
-    ,traces.block_number AS block_number
-    ,traces.transaction_hash AS transaction_hash
-    ,traces.trace_address AS trace_address
-    ,PARSE_TRACE(traces.input) AS parsed
-FROM `bigquery-public-data.crypto_ethereum.traces` AS traces
-WHERE to_address = '0xacd43e627e64355f1861cec6d3a6688b31a6f952'
-  AND STARTS_WITH(traces.input, '0x018ee9b7')
+""" OPTIONS
+  (library = "gs://blockchain-etl-bigquery/ethers.js");
+WITH
+  parsed_traces AS (
+    SELECT
+      traces.block_timestamp AS block_timestamp,
+      traces.block_number AS block_number,
+      traces.transaction_hash AS transaction_hash,
+      traces.trace_address AS trace_address,
+      PARSE_TRACE(traces.input) AS parsed
+    FROM
+      `bigquery-public-data.crypto_ethereum.traces` AS traces
+    WHERE
+      to_address = '0xacd43e627e64355f1861cec6d3a6688b31a6f952' AND STARTS_WITH(traces.input, '0x018ee9b7')
   )
 SELECT
-     block_timestamp
-     ,block_number
-     ,transaction_hash
-     ,trace_address
-     ,parsed.error AS error
-     
-    ,parsed.reserve AS `reserve`
-    
-    ,parsed.amount AS `amount`
-    
-FROM parsed_traces
+  block_timestamp,
+  block_number,
+  transaction_hash,
+  trace_address,
+  parsed.error AS error,
+  parsed.reserve AS reserve,
+  parsed.amount AS amount
+FROM
+  parsed_traces;
