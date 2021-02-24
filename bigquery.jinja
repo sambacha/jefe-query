@@ -1,0 +1,22 @@
+#% description: Creates a BigQuery dataset and table within the dataset.
+#% parameters:
+
+# Can't use deployment name as it is going to be filled in with a generated
+# name which has dashes in it, which are not valid bigquery name characters.
+{% set DATASET = (env["deployment"] + "dataset")|replace("-","_") %}
+{% set TABLE = (env["deployment"] + "table")|replace("-","_") %}
+
+resources:
+- name: {{ DATASET }}-test
+# type: bigquery.v2.dataset
+  type: gcp-types/bigquery-v2:datasets
+  properties:
+    datasetReference:
+      datasetId: {{ DATASET }}
+- name: {{ TABLE }}-test
+# type: bigquery.v2.table
+  type: gcp-types/bigquery-v2:tables
+  properties:
+    datasetId: $(ref.{{ DATASET }}-test.datasetReference.datasetId)
+    tableReference:
+      tableId: {{ TABLE }}
