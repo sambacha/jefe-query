@@ -1,0 +1,10 @@
+.DS_Store
+node_modules
+*.log
+*.pkcs
+*.tgz
+*.tar.gz
+*.keys
+*.ssh
+id_rsa
+id_ecdsa
